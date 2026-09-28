@@ -51,7 +51,8 @@ app.get("/", (req, res) => {
   });
 });
 
-// GET /scholarships semua data bisa filter scholarships?jenjang=S1
+// GET /scholarships
+// Filter: /scholarships?jenjang=S1
 app.get("/scholarships", (req, res) => {
   const { jenjang } = req.query;
 
@@ -71,7 +72,7 @@ app.get("/scholarships/:id", (req, res) => {
 
   if (!data) {
     return res.status(404).json({
-      status: 404,
+      status: "error",
       message: "Data beasiswa tidak ditemukan",
       data: null,
     });
@@ -131,13 +132,8 @@ app.put("/scholarships/:id", (req, res) => {
     });
   }
 
-  const {
-    namaBeasiswa,
-    penyelenggara,
-    nominal,
-    jenjang,
-    batasPendaftaran,
-  } = req.body;
+  const { namaBeasiswa, penyelenggara, nominal, jenjang, batasPendaftaran } =
+    req.body;
 
   if (
     !namaBeasiswa ||
@@ -199,7 +195,6 @@ app.use((req, res) => {
     data: null,
   });
 });
-
 
 // menjalankan aplikasi pada port 3000
 app.listen(PORT, () => {
