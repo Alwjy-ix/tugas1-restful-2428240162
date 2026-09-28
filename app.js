@@ -197,6 +197,9 @@ app.use((req, res) => {
 });
 
 // menjalankan aplikasi pada port 3000
-app.listen(PORT, () => {
-  console.log(`Server berjalan di http://localhost:${PORT}`);
-});
+if (process.env.NODE_ENV !== "production") {
+  app.listen(PORT, () => {
+    console.log(`Server berjalan di http://localhost:${PORT}`);
+  });
+}
+module.exports = app;
