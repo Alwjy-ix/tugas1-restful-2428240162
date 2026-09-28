@@ -1,5 +1,29 @@
 {
   "dependencies": {
     "express": "^5.2.1"
-  }
+  },
+  "name": "tugas1-restful-2428240162",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "devDependencies": {
+    "nodemon": "^3.1.14"
+  },
+  "scripts": {
+    "start": "node app.js",
+    "dev": "nodemon app.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Alwjy-ix/tugas1-restful-2428240162.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/Alwjy-ix/tugas1-restful-2428240162/issues"
+  },
+  "homepage": "https://github.com/Alwjy-ix/tugas1-restful-2428240162#readme"
 }
