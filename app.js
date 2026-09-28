@@ -34,7 +34,6 @@ const scholarships = [
 
 let nextId = 4;
 
-
 // GET /
 app.get("/", (req, res) => {
   res.json({
@@ -51,7 +50,6 @@ app.get("/", (req, res) => {
     ],
   });
 });
-
 
 // GET /scholarships semua data bisa filter scholarships?jenjang=S1
 app.get("/scholarships", (req, res) => {
@@ -84,13 +82,8 @@ app.get("/scholarships/:id", (req, res) => {
 
 // POST /scholarships
 app.post("/scholarships", (req, res) => {
-  const {
-    namaBeasiswa,
-    penyelenggara,
-    nominal,
-    jenjang,
-    batasPendaftaran,
-  } = req.body;
+  const { namaBeasiswa, penyelenggara, nominal, jenjang, batasPendaftaran } =
+    req.body;
 
   if (
     !namaBeasiswa ||
@@ -100,7 +93,7 @@ app.post("/scholarships", (req, res) => {
     !batasPendaftaran
   ) {
     return res.status(400).json({
-      status: 400,
+      status: "error",
       message: "Semua data wajib diisi",
       data: null,
     });
@@ -119,11 +112,63 @@ app.post("/scholarships", (req, res) => {
   nextId++;
 
   res.status(201).json({
-    status: 201,
+    status: "success",
     message: "Data beasiswa berhasil ditambahkan",
     data: baru,
   });
 });
+
+// PUT /scholarships/:id
+app.put("/scholarships/:id", (req, res) => {
+  const id = parseInt(req.params.id);
+  const index = scholarships.findIndex((item) => item.id === id);
+
+  if (index === -1) {
+    return res.status(404).json({
+      status: "error",
+      message: "Data beasiswa tidak ditemukan",
+      data: null,
+    });
+  }
+
+  const {
+    namaBeasiswa,
+    penyelenggara,
+    nominal,
+    jenjang,
+    batasPendaftaran,
+  } = req.body;
+
+  if (
+    !namaBeasiswa ||
+    !penyelenggara ||
+    !nominal ||
+    !jenjang ||
+    !batasPendaftaran
+  ) {
+    return res.status(400).json({
+      status: "error",
+      message: "Semua data wajib diisi",
+      data: null,
+    });
+  }
+
+  scholarships[index] = {
+    id: id,
+    namaBeasiswa: namaBeasiswa,
+    penyelenggara: penyelenggara,
+    nominal: nominal,
+    jenjang: jenjang,
+    batasPendaftaran: batasPendaftaran,
+  };
+
+  res.status(200).json({
+    status: "success",
+    message: "Data beasiswa berhasil diperbarui",
+    data: scholarships[index],
+  });
+});
+
 
 
 // menjalankan aplikasi pada port 3000
