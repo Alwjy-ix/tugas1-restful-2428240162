@@ -169,6 +169,36 @@ app.put("/scholarships/:id", (req, res) => {
   });
 });
 
+// DELETE /scholarships/:id
+app.delete("/scholarships/:id", (req, res) => {
+  const id = parseInt(req.params.id);
+  const index = scholarships.findIndex((item) => item.id === id);
+
+  if (index === -1) {
+    return res.status(404).json({
+      status: "error",
+      message: "Data beasiswa tidak ditemukan",
+      data: null,
+    });
+  }
+
+  scholarships.splice(index, 1);
+
+  res.status(200).json({
+    status: "success",
+    message: `Data beasiswa dengan id ${id} berhasil dihapus`,
+    data: null,
+  });
+});
+
+// Catch-all 404
+app.use((req, res) => {
+  res.status(404).json({
+    status: "error",
+    message: "Endpoint tidak ditemukan",
+    data: null,
+  });
+});
 
 
 // menjalankan aplikasi pada port 3000
